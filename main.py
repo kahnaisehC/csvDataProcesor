@@ -7,4 +7,7 @@ if __name__ == "__main__":
 
     print("hello, world")
     file = open(path, "r")
-    print(file.read())
+
+    print(file.readline())
+
+
