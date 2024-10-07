@@ -1,10 +1,11 @@
 {
     "sexo": {
         "type": "list",
-        "lists": [
-            ["M","MASCULINO"],
-            ["F", "FEMENINO"]
-        ]
+        "list": [
+            "M",
+            "F"
+        ],
+        "criticity": 1
     },
     "grupo_etario": {
         "type": "list",
@@ -20,7 +21,8 @@
             "80-89",
             "90-99",
             ">100"
-        ]
+        ],
+        "criticity": 1
     },
     "jurisdiccion_residencia": {
         "type": "list",
@@ -48,24 +50,17 @@
             "Santa Fe",
             "Santiago del Estero",
             "Tierra del Fuego"
-        ]
+        ],
+        "criticity": 1
     },
     "jurisdiccion_residencia_id": {
         "type": "regex",
-        "regex": "/^\\d{2}$/"
+        "regex": "/^\\d{2}$/",
+        "criticity": 1
     },
     "depto_residencia": {
-        "type": "list",
-        "list": [
-            "Capital",
-            "Baradero",
-            "La Plata",
-            "San Fernando",
-            "Rosario",
-            "Cipolletti",
-            "Neuquén",
-            "+otros"
-        ]
+        "type": "regex",
+        "regex": ""
     },
     "depto_residencia_id": {
         "type": "regex",
@@ -97,11 +92,13 @@
             "Santa Fe",
             "Santiago del Estero",
             "Tierra del Fuego"
-        ]
+        ],
+        "criticity": 1
     },
     "jurisdiccion_aplicacion_id": {
         "type": "regex",
-        "regex": "/^\\d{2}$/"
+        "regex": "/^\\d{2}$/",
+        "criticity": 1
     },
     "depto_aplicacion": {
         "type": "list",
@@ -110,17 +107,19 @@
             "Baradero",
             "Rosario",
             "Salta",
-            "Godoy Cruz",
-            "+otros"
-        ]
+            "Godoy Cruz"
+        ],
+        "criticity": 0
     },
     "depto_aplicacion_id": {
         "type": "regex",
-        "regex": "/^\\d+$/"
+        "regex": "/^\\d+$/",
+        "criticity": 0.1
     },
     "fecha_aplicacion": {
         "type": "regex",
-        "regex": "/^\\d{4}-\\d{2}-\\d{2}$/"
+        "regex": "/^\\d{4}-\\d{2}-\\d{2}$/",
+        "criticity": 0.1
     },
     "vacuna": {
         "type": "list",
@@ -131,13 +130,14 @@
             "AstraZeneca",
             "Sputnik V",
             "Cansino"
-        ]
+        ],
+        "criticity": 1
     },
     "cod_dosis_generica": {
         "type": "range",
         "lower_bound": 1,
         "upper_bound": 20,
-        "NOTE": "Estos valores incluyen desde la primera dosis hasta varios refuerzos."
+        "criticity": 0.1
     },
     "nombre_dosis_generica": {
         "type": "list",
@@ -146,32 +146,40 @@
             "2da",
             "Refuerzo",
             "Adicional"
-        ]
+        ],
+        "criticity": 1
     },
     "condicion_aplicacion": {
         "type": "list",
         "list": [
+            "SIN Factores de Riesgo",
             "18 a 39 años SIN Factores de Riesgo",
             "CON Factores de Riesgo",
+            "40 a 49 años SIN Factores de Riesgo",
+            "3 a 11 años SIN Factores de Riesgo",
+            "50 a 59 años SIN Factores de Riesgo",
+            "18 a 59 años CON Factores de Riesgo",
+            "12 a 17 años CON Factores de Riesgo",
+            "12 a 17 años SIN Factores de Riesgo",
             "60 o más años",
-            "Personal de Salud",
-            "Embarazadas",
-            "Menores de edad",
-            "Mayores de 70 años"
-        ]
+            "3 a 11 años CON Factores de Riesgo"
+        ],
+        "criticity": 0.1
     },
     "orden_dosis": {
         "type": "range",
         "lower_bound": 1,
-        "upper_bound": 10,
-        "NOTE": "Número total de dosis administradas a una persona."
+        "upper_bound": 7,
+        "criticity": 0.1
     },
     "lote_vacuna": {
         "type": "regex",
-        "regex": "/^[a-zA-Z0-9]+$/"
+        "regex": "/^[a-zA-Z0-9]+$/",
+        "criticity": 0.1
     },
     "id_persona_dw": {
         "type": "regex",
-        "regex": "/^\\d+\\.\\d+$/"
+        "regex": "/^\\d+\\.\\d+$/",
+        "criticity": 0
     }
 }
