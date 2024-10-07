@@ -1,24 +1,40 @@
 import string
+import json
 
 
-
+PATH_TO_INPUT_FORMAT_FILE="input/input_format.json"
+columns_to_ignore = {"id_persona_dw"}
+DATASET_PATH= "assets/testDatasets/modelo_muestra.csv"
+DATASET_PATH = "input/datos_nomivac_parte1.csv"
+# PATH_TO_BROKEN_D= "output/broken_data.csv"
 
 def check_state_of_fields(fields:list[str], headers:list[str]) -> str:
-    if len(fields) != len(headers):
-        return "Size mismatch between headers and fields"
-    for field_index in len(fields):
-        pass
+    with open(PATH_TO_INPUT_FORMAT_FILE, "r") as input_format:
+        input_format = json.loads(input_format.read())
+        if len(fields) != len(headers):
+            return "Size mismatch between headers and fields"
+        
+        
+        for field_index in range(0, len(fields)):
+            field = fields[field_index]
+            header = headers[field_index]
+            if input_format[header] == "list":
+                if input_format[header]["list"].__contains__(field):
+                    return ""
+                pass
+            if input_format[header] == "lists_list":
+                pass
+            if input_format[header] == "regex":
+                pass
+            if input_format[header] == "range":
+                pass
 
-
-    return "Clear"
+        return "Clear"
 
 if __name__ == "__main__":
-    columns_to_ignore = {"id_persona_dw"}
-    path = "assets/testDatasets/modelo_muestra.csv"
-    path2 = "output/broken_data.csv"
 
 
-    with open(path, "r") as file, open(path2, "w") as broken_file_data:
+    with open(DATASET_PATH, "r") as file:
 
         # leer csv headers
         headers_row = file.readline()
@@ -64,14 +80,6 @@ if __name__ == "__main__":
                 if not field in frequency_map[header]:
                     frequency_map[header][field] = 0
                 frequency_map[header][field] += 1
-                
 
-                
-
-            
-
-
-           
-        
-
-        # en el frequency map hacer regex para identificar los tipos de vacunas
+        with open("input/datos1_freq_map", "w") as f:
+            f.write(frequency_map.__str__())
