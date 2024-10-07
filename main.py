@@ -1,35 +1,58 @@
 import string
 import json
 
-
+# Path strings
 PATH_TO_INPUT_FORMAT_FILE="input/input_format.json"
-columns_to_ignore = {"id_persona_dw"}
+IGNORE_COLUMNS= {"id_persona_dw"}
 DATASET_PATH= "assets/testDatasets/modelo_muestra.csv"
-DATASET_PATH = "input/datos_nomivac_parte1.csv"
-# PATH_TO_BROKEN_D= "output/broken_data.csv"
+# DATASET_PATH = "input/datos_nomivac_parte1.csv"
+# PATH_TO_BROKEN_D = "output/broken_data.csv"
 
-def check_state_of_fields(fields:list[str], headers:list[str]) -> str:
+# misc constants
+REPETITION_TO_NORMALIZE = 30
+
+
+def check_state_of_fields(fields:list[str], headers:list[str], frequency_map:set[dict[str, str]]) -> str:
+    # possible_state_of_fields
+    # El profe dijo que no podiamos tener loosey goosey strings so... ¯\_(ツ)_/¯
+    CLEAR = "Clear",
+    SIZE_ERROR = "Size Mismatch between fields and headers",
+    LIST_ERROR = "Value wasn't find in list"
+    LISTS_ERROR = "Value wasn't find in lists"
+    REGEX_ERROR = "Value didn't match regex in input"
+    RANGE_ERROR = "Value out of range"
+
     with open(PATH_TO_INPUT_FORMAT_FILE, "r") as input_format:
         input_format = json.loads(input_format.read())
         if len(fields) != len(headers):
-            return "Size mismatch between headers and fields"
-        
+            return SIZE_ERROR 
         
         for field_index in range(0, len(fields)):
             field = fields[field_index]
             header = headers[field_index]
-            if input_format[header] == "list":
-                if input_format[header]["list"].__contains__(field):
-                    return ""
-                pass
-            if input_format[header] == "lists_list":
-                pass
-            if input_format[header] == "regex":
-                pass
-            if input_format[header] == "range":
-                pass
+            if frequency_map[header][field] < REPETITION_TO_NORMALIZE:
+                if input_format[header]["type"] == "list":
+                    domain = input_format[header]["list"]
+                    if (domain.count(field) == 0):
+                        return LIST_ERROR
+                if input_format[header]["type"] == "lists":
+                    domains = input_format[header]["lists"]
+                    for domain in domains:
+                        if domain.count(field) != 0:
+                            break
+                    return LISTS_ERROR
+                if input_format[header]["type"] == "regex":
+                    regex = input_format[header]["regex"]
+                    if(regex.match(field)):
+                        return REGEX_ERROR
+                if input_format[header]["type"] == "range":
+                    lower_bound = input_format[header]["lower_bound"]
+                    upper_bound = input_format[header]["upper_bound"]
+                    if lower_bound > field or upper_bound < field:
+                        return RANGE_ERROR
 
-        return "Clear"
+
+        return CLEAR 
 
 if __name__ == "__main__":
 
@@ -57,22 +80,13 @@ if __name__ == "__main__":
             for header_index in range(0, len(headers)):
                 # obtener header e ignorar si esta dentro del set de identificadores unicos
                 header = headers[header_index]
-                if columns_to_ignore.__contains__(header):
+                if IGNORE_COLUMNS.__contains__(header):
                     continue
 
-                # si len(fields) > len(headers) guardar line en output/broken_data/large_data + OBSERVACIONES
-                if len(fields) > len(headers):
-                    # TODO: anadir anadir row to large_data y crear large_data
-                    continue
-                # si len(fields) < len(headers) guardar line en output/broken_data/short_data + OBSERVACIONES
-                if len(fields) < len(headers):
-                    # TODO: anadir row a short_data
-                    continue
-                # si len(fields) == len(headers) proceder
-                state_of_line = check_state_of_fields(fields,  headers)
-                if state_of_line != "Clean":
-                    # TODO: add to output/broken_data/bad_format
-                    pass
+                # state_of_line = check_state_of_fields(fields,  headers)
+                # if state_of_line != "Clean":
+                #     # TODO: add to output/broken_data/bad_format
+                #     pass
                 
 
 
@@ -80,6 +94,3 @@ if __name__ == "__main__":
                 if not field in frequency_map[header]:
                     frequency_map[header][field] = 0
                 frequency_map[header][field] += 1
-
-        with open("input/datos1_freq_map", "w") as f:
-            f.write(frequency_map.__str__())
