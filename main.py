@@ -1,8 +1,13 @@
 import string
 
-def check_state_of_fields(fields) -> str:
 
 
+
+def check_state_of_fields(fields:list[str], headers:list[str]) -> str:
+    if len(fields) != len(headers):
+        return "Size mismatch between headers and fields"
+    for field_index in len(fields):
+        pass
 
 
     return "Clear"
@@ -48,7 +53,7 @@ if __name__ == "__main__":
                     # TODO: anadir row a short_data
                     continue
                 # si len(fields) == len(headers) proceder
-                state_of_line = check_state_of_fields(fields)
+                state_of_line = check_state_of_fields(fields,  headers)
                 if state_of_line != "Clean":
                     # TODO: add to output/broken_data/bad_format
                     pass

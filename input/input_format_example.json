@@ -1,23 +1,30 @@
 {
-    "field-name1":[
+    "field-name1":{
+        "type": "list",
+        "list": [
         "list",
         "of",
         "values",
         "in",
         "the",
         "domain"
-    ],
+    ]},
     "field-name2": {
+        "type": "regex",
         "regex": "/regex definition/"
     },
     "field-name3": {
+        "type": "range",
         "lower_bound": 0,
         "upper_bound": 100,
         "NOTE": "these are INCLUDING bounds(from 0 to 100 including)"
     },
-    "field-name4":[
-        ["list", "of", "values", "that"],
-        ["should", "be", "treated", "as", "equal"],
-        [1, "one", "ONE", "One", "uno"]
-    ]
+    "field-name4":{
+        "type": "lists_list",
+        "lists":[
+            ["list", "of", "values", "that"],
+            ["should", "be", "treated", "as", "equal"],
+            [1, "one", "ONE", "One", "uno"]
+        ]
+    }
 }
