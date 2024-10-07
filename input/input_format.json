@@ -1,0 +1,177 @@
+{
+    "sexo": {
+        "type": "list",
+        "lists": [
+            ["M","MASCULINO"],
+            ["F", "FEMENINO"]
+        ]
+    },
+    "grupo_etario": {
+        "type": "list",
+        "list": [
+            "<12",
+            "12-17",
+            "18-29",
+            "30-39",
+            "40-49",
+            "50-59",
+            "60-69",
+            "70-79",
+            "80-89",
+            "90-99",
+            ">100"
+        ]
+    },
+    "jurisdiccion_residencia": {
+        "type": "list",
+        "list": [   
+            "Buenos Aires",
+            "Ciudad Autónoma de Buenos Aires",
+            "Catamarca",
+            "Chaco",
+            "Chubut",
+            "Córdoba",
+            "Corrientes",
+            "Entre Ríos",
+            "Formosa",
+            "Jujuy",
+            "La Pampa",
+            "La Rioja",
+            "Mendoza",
+            "Misiones",
+            "Neuquén",
+            "Río Negro",
+            "Salta",
+            "San Juan",
+            "San Luis",
+            "Santa Cruz",
+            "Santa Fe",
+            "Santiago del Estero",
+            "Tierra del Fuego"
+        ]
+    },
+    "jurisdiccion_residencia_id": {
+        "type": "regex",
+        "regex": "/^\\d{2}$/"
+    },
+    "depto_residencia": {
+        "type": "list",
+        "list": [
+            "Capital",
+            "Baradero",
+            "La Plata",
+            "San Fernando",
+            "Rosario",
+            "Cipolletti",
+            "Neuquén",
+            "+otros"
+        ]
+    },
+    "depto_residencia_id": {
+        "type": "regex",
+        "regex": "/^\\d+$/"
+    },
+    "jurisdiccion_aplicacion": {
+        "type": "list",
+        "list": [
+            "Buenos Aires",
+            "Ciudad Autónoma de Buenos Aires",
+            "Catamarca",
+            "Chaco",
+            "Chubut",
+            "Córdoba",
+            "Corrientes",
+            "Entre Ríos",
+            "Formosa",
+            "Jujuy",
+            "La Pampa",
+            "La Rioja",
+            "Mendoza",
+            "Misiones",
+            "Neuquén",
+            "Río Negro",
+            "Salta",
+            "San Juan",
+            "San Luis",
+            "Santa Cruz",
+            "Santa Fe",
+            "Santiago del Estero",
+            "Tierra del Fuego"
+        ]
+    },
+    "jurisdiccion_aplicacion_id": {
+        "type": "regex",
+        "regex": "/^\\d{2}$/"
+    },
+    "depto_aplicacion": {
+        "type": "list",
+        "list": [
+            "Capital",
+            "Baradero",
+            "Rosario",
+            "Salta",
+            "Godoy Cruz",
+            "+otros"
+        ]
+    },
+    "depto_aplicacion_id": {
+        "type": "regex",
+        "regex": "/^\\d+$/"
+    },
+    "fecha_aplicacion": {
+        "type": "regex",
+        "regex": "/^\\d{4}-\\d{2}-\\d{2}$/"
+    },
+    "vacuna": {
+        "type": "list",
+        "list": [
+            "Sinopharm",
+            "Pfizer",
+            "Moderna ARNm 020 mg mL",
+            "AstraZeneca",
+            "Sputnik V",
+            "Cansino"
+        ]
+    },
+    "cod_dosis_generica": {
+        "type": "range",
+        "lower_bound": 1,
+        "upper_bound": 20,
+        "NOTE": "Estos valores incluyen desde la primera dosis hasta varios refuerzos."
+    },
+    "nombre_dosis_generica": {
+        "type": "list",
+        "list": [
+            "1ra",
+            "2da",
+            "Refuerzo",
+            "Adicional"
+        ]
+    },
+    "condicion_aplicacion": {
+        "type": "list",
+        "list": [
+            "18 a 39 años SIN Factores de Riesgo",
+            "CON Factores de Riesgo",
+            "60 o más años",
+            "Personal de Salud",
+            "Embarazadas",
+            "Menores de edad",
+            "Mayores de 70 años"
+        ]
+    },
+    "orden_dosis": {
+        "type": "range",
+        "lower_bound": 1,
+        "upper_bound": 10,
+        "NOTE": "Número total de dosis administradas a una persona."
+    },
+    "lote_vacuna": {
+        "type": "regex",
+        "regex": "/^[a-zA-Z0-9]+$/"
+    },
+    "id_persona_dw": {
+        "type": "regex",
+        "regex": "/^\\d+\\.\\d+$/"
+    }
+}
