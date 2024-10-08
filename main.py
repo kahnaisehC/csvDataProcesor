@@ -14,16 +14,17 @@ BROKEN_DATA_PATH = "output/broken_data.csv"
 # misc constants
 REPETITION_TO_NORMALIZE = 30
 
-
+def process_error_string(error: str, field: str, header: str) -> str:
+    return error + "field: " + field + ". header: " + header
 def check_state_of_fields(fields:list[str], headers:list[str], frequency_map:set[dict[str, str]]) -> str:
     # possible_state_of_fields
     # El profe dijo que no podiamos tener loosey goosey strings so... ¯\_(ツ)_/¯
     CLEAR = "Clear"
-    SIZE_ERROR = "Size Mismatch between fields and headers; "
-    LIST_ERROR = "Value wasn't find in list; "
-    LISTS_ERROR = "Value wasn't find in lists; "
-    REGEX_ERROR = "Value didn't match regex in input; "
-    RANGE_ERROR = "Value out of range; "
+    SIZE_ERROR = " Size Mismatch between fields and headers; "
+    LIST_ERROR = " Value wasn't find in list; "
+    LISTS_ERROR = " Value wasn't find in lists; "
+    REGEX_ERROR = " Value didn't match regex in input; "
+    RANGE_ERROR = " Value out of range; "
 
     return_string = ""
 
@@ -35,6 +36,7 @@ def check_state_of_fields(fields:list[str], headers:list[str], frequency_map:set
         for field_index in range(0, len(fields)):
             field = fields[field_index]
             header = headers[field_index]
+            # TODO: CHECK THIS!!!!
             if IGNORE_COLUMNS.__contains__(header):
                 continue
             # catch if its not defined
@@ -43,23 +45,23 @@ def check_state_of_fields(fields:list[str], headers:list[str], frequency_map:set
                 if input_format[header]["type"] == "list":
                     domain = input_format[header]["list"]
                     if (domain.count(field) == 0):
-                        return_string += LIST_ERROR + " header: " + header + " field: " + field 
+                        return_string += process_error_string(LIST_ERROR, field, header) 
                 if input_format[header]["type"] == "lists":
                     domains = input_format[header]["lists"]
                     for domain in domains:
                         if domain.count(field) != 0:
                             break
-                    return_string += LISTS_ERROR
+                    return_string += process_error_string(LISTS_ERROR, field, header)
                 if input_format[header]["type"] == "regex":
                     regex = input_format[header]["regex"]
                     if(re.match(field, regex)):
-                        return_string += REGEX_ERROR
+                        return_string += process_error_string(REGEX_ERROR, field, header) 
                 if input_format[header]["type"] == "range":
                     lower_bound = int(input_format[header]["lower_bound"])
                     upper_bound = int(input_format[header]["upper_bound"])
                     # TODO: handle exception if input_format[header]["lower_bound"] is not parseable
                     if lower_bound > int(field) or upper_bound < int(field):
-                       return_string = return_string + RANGE_ERROR
+                       return_string += process_error_string(RANGE_ERROR, field, header) 
         if return_string == "":
             return CLEAR
         return return_string
