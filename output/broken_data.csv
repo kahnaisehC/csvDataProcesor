@@ -1,0 +1,10 @@
+sexo,grupo_etario,jurisdiccion_residencia,jurisdiccion_residencia_id,depto_residencia,depto_residencia_id,jurisdiccion_aplicacion,jurisdiccion_aplicacion_id,depto_aplicacion,depto_aplicacion_id,fecha_aplicacion,vacuna,cod_dosis_generica,nombre_dosis_generica,condicion_aplicacion,orden_dosis,lote_vacuna,id_persona_dw,OBSERVACIONES
+M,S.I.,Buenos Aires,06,La Matanza,427,Buenos Aires,06,La Matanza,427,2022-05-23,Moderna ARNm 020 mg mL,14,Refuerzo,SIN Factores de Riesgo,3,053M21A,14076441511.0,Value wasn't find in list header: grupo_etario field: S.I.
+M,S.I.,Buenos Aires,06,La Matanza,427,Buenos Aires,06,La Matanza,427,2023-01-19,Pfizer,14,Refuerzo,Otros,4,SELY6,14076441511.0,Value wasn't find in list header: grupo_etario field: S.I.
+F,S.I.,Buenos Aires,06,Necochea,581,Buenos Aires,06,Necochea,581,2022-07-25,Moderna ARNm 020 mg mL,14,Refuerzo,Otros,4,085M21A,14123257931.0,Value wasn't find in list header: grupo_etario field: S.I.
+F,S.I.,Buenos Aires,06,Necochea,581,Buenos Aires,06,Necochea,581,2022-12-12,Moderna ARNm 020 mg mL,14,Refuerzo,Otros,4,045C22A,14123257931.0,Value wasn't find in list header: grupo_etario field: S.I.
+F,S.I.,Buenos Aires,06,Necochea,581,Buenos Aires,06,Necochea,581,2022-01-05,Pfizer,14,Refuerzo,60 o más años,4,FJ8198,14123257931.0,Value wasn't find in list header: grupo_etario field: S.I.
+F,S.I.,Santa Fe,82,Rosario,084,Santa Fe,82,Rosario,084,2022-01-25,Moderna ARNm 020 mg mL,14,Refuerzo,18 a 39 años SIN Factores de Riesgo,3,940915,14066357651.0,Value wasn't find in list header: grupo_etario field: S.I.
+M,12-17,Chaco,22,Libertad,077,Chaco,22,Libertad,077,2023-03-01,Moderna ARNm 020 mg mL,14,Refuerzo,SIN Factores de Riesgo,3,"2121,JMN,",14007927891.0,Size Mismatch between fields and headers
+MASCULINO,40-49,Buenos Aires,06,Navarro,574,Buenos Aires,06,Navarro,574,2022-05-27,Pfizer,14,Refuerzo,SIN Factores de Riesgo,3,FN1672,14005030329.0,Value wasn't find in list header: sexo field: MASCULINO
+FEMENINO,50-59,Buenos Aires,06,Almirante Brown,028,Buenos Aires,06,Almirante Brown,028,2022-08-29,Sputnik,14,Refuerzo,CON Factores de Riesgo,3,MDD9MDE1,14151113203.0,Value wasn't find in list header: sexo field: FEMENINO
