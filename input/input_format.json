@@ -60,7 +60,7 @@
     },
     "depto_residencia": {
         "type": "regex",
-        "regex": ""
+        "regex": "/^[a-zA-Z0-9]+$/"
     },
     "depto_residencia_id": {
         "type": "regex",
