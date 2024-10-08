@@ -95,6 +95,8 @@
     "jurisdiccion_aplicacion": {
         "type": "list",
         "list": [
+            "Capital",
+            "Banda",
             "Buenos Aires",
             "Ciudad Autónoma de Buenos Aires",
             "Catamarca",
@@ -129,6 +131,7 @@
     "depto_aplicacion": {
         "type": "list",
         "list": [
+            "Capital",
             "Banda",
             "La Capital",
             "Capital",
