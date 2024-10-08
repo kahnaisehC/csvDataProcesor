@@ -12,7 +12,7 @@ DATASET_PATH= "assets/testDatasets/regex_test_dataset.csv"
 BROKEN_DATA_PATH = "output/broken_data.csv"
 
 # misc constants
-REPETITION_TO_NORMALIZE = 30
+REPETITION_TO_NORMALIZE = 2
 
 def process_error_string(error: str, field: str, header: str) -> str:
     return error + "field: " + field + ". header: " + header
@@ -54,7 +54,8 @@ def check_state_of_fields(fields:list[str], headers:list[str], frequency_map:set
                     return_string += process_error_string(LISTS_ERROR, field, header)
                 if input_format[header]["type"] == "regex":
                     regex = input_format[header]["regex"]
-                    if(re.match(field, regex)):
+                    r = re.compile(regex)
+                    if(r.match(field) == None):
                         return_string += process_error_string(REGEX_ERROR, field, header) 
                 if input_format[header]["type"] == "range":
                     lower_bound = int(input_format[header]["lower_bound"])

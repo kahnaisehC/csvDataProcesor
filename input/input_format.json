@@ -55,16 +55,42 @@
     },
     "jurisdiccion_residencia_id": {
         "type": "regex",
-        "regex": "/^\\d{2}$/",
+        "regex": "^\\d{2}$",
         "criticity": 1
     },
     "depto_residencia": {
-        "type": "regex",
-        "regex": "/^[a-zA-Z0-9]+$/"
+        "type": "list",
+        "list": [
+            "Banda",
+            "La Capital",
+            "Capital",
+            "Tigre",
+            "Baradero",
+            "Rosario",
+            "Salta",
+            "Godoy Cruz",
+            "Berazategui",
+            "Quilmes",
+            "Loreto",
+            "Tres de Febrero",
+            "Morón",
+            "Necochea",
+            "La Paz",
+            "Pilcomayo",
+            "Pergamino",
+            "Grl. José de San Martín",
+            "General Pueyrredón",
+            "Las Heras",
+            "Almirante Brown",
+            "Vicente López",
+            "Avellaneda",
+            "Esteban Echeverría"
+        ],
+        "criticity": 0
     },
     "depto_residencia_id": {
         "type": "regex",
-        "regex": "/^\\d+$/"
+        "regex": "^\\d+$"
     },
     "jurisdiccion_aplicacion": {
         "type": "list",
@@ -97,28 +123,48 @@
     },
     "jurisdiccion_aplicacion_id": {
         "type": "regex",
-        "regex": "/^\\d{2}$/",
+        "regex": "^\\d{2}$",
         "criticity": 1
     },
     "depto_aplicacion": {
         "type": "list",
         "list": [
+            "Banda",
+            "La Capital",
+            "Capital",
+            "Tigre",
             "Capital",
             "Baradero",
             "Rosario",
             "Salta",
-            "Godoy Cruz"
+            "Godoy Cruz",
+            "Berazategui",
+            "Quilmes",
+            "Loreto",
+            "Tres de Febrero",
+            "Morón",
+            "Necochea",
+            "La Paz",
+            "Pilcomayo",
+            "Pergamino",
+            "Grl. José de San Martín",
+            "General Pueyrredón",
+            "Las Heras",
+            "Almirante Brown",
+            "Vicente López",
+            "Avellaneda",
+            "Esteban Echeverría"
         ],
         "criticity": 0
     },
     "depto_aplicacion_id": {
         "type": "regex",
-        "regex": "/^\\d+$/",
+        "regex": "^\\d+$",
         "criticity": 0.1
     },
     "fecha_aplicacion": {
         "type": "regex",
-        "regex": "/^\\d{4}-\\d{2}-\\d{2}$/",
+        "regex": "^\\d{4}-\\d{2}-\\d{2}$",
         "criticity": 0.1
     },
     "vacuna": {
@@ -162,7 +208,8 @@
             "12 a 17 años CON Factores de Riesgo",
             "12 a 17 años SIN Factores de Riesgo",
             "60 o más años",
-            "3 a 11 años CON Factores de Riesgo"
+            "3 a 11 años CON Factores de Riesgo",
+            "Salud"
         ],
         "criticity": 0.1
     },
@@ -174,12 +221,12 @@
     },
     "lote_vacuna": {
         "type": "regex",
-        "regex": "/^[a-zA-Z0-9]+$/",
+        "regex": "^[a-zA-Z0-9- ]+$",
         "criticity": 0.1
     },
     "id_persona_dw": {
         "type": "regex",
-        "regex": "/^\\d+\\.\\d+$/",
+        "regex": "^\\d+.\\d+$",
         "criticity": 0
     }
 }
