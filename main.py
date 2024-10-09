@@ -24,7 +24,9 @@ def check_state_of_fields(fields:list[str], headers:list[str], frequency_map:set
     LIST_ERROR = " Value has not been found in list; "
     LISTS_ERROR = " Value has not been found in lists; "
     REGEX_ERROR = " Value didn't match regex in input; "
-    RANGE_ERROR = " Value out of range; "
+    OUT_OF_RANGE_ERROR = " Value out of range; "
+    NAN_RANGE_ERROR = " Value is not a number; "
+    LOWER_UPPER_RANGE_ERROR = " Lower or Upper bound is not defined as an int. check input/input_format.json "
 
     return_string = ""
 
@@ -56,9 +58,16 @@ def check_state_of_fields(fields:list[str], headers:list[str], frequency_map:set
             if input_format[header]["type"] == "range":
                 lower_bound = int(input_format[header]["lower_bound"])
                 upper_bound = int(input_format[header]["upper_bound"])
-                # TODO: handle exception if input_format[header]["lower_bound"] is not parseable
-                if lower_bound > int(field) or upper_bound < int(field):
-                    return_string += process_error_string(RANGE_ERROR, field, header) 
+                if field.isdigit() == False:
+                    return_string += process_error_string(NAN_RANGE_ERROR, field, header)
+                elif (lower_bound.__class__ != int
+                      or upper_bound.__class__ != int
+                    ):
+                    return_string += process_error_string(LOWER_UPPER_RANGE_ERROR, field, header)
+                elif (lower_bound > int(field)
+                    or upper_bound < int(field)
+                    ):
+                    return_string += process_error_string(OUT_OF_RANGE_ERROR, field, header) 
 
 
         if return_string == "":

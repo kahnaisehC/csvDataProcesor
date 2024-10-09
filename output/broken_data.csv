@@ -1,4 +1,5 @@
 sexo,grupo_etario,jurisdiccion_residencia,jurisdiccion_residencia_id,depto_residencia,depto_residencia_id,jurisdiccion_aplicacion,jurisdiccion_aplicacion_id,depto_aplicacion,depto_aplicacion_id,fecha_aplicacion,vacuna,cod_dosis_generica,nombre_dosis_generica,condicion_aplicacion,orden_dosis,lote_vacuna,id_persona_dw,OBSERVACIONES
 M,30-39,Mendoza,50,Rivadavia,084,Mendoza,50,Rivadavia,084,2021-08-14,AstraZeneca,21,2da,Estratégico,2,NJ0272,14152852517.0, Value out of range; field: 21. header: cod_dosis_generica
+M,80-89,Santiago del Estero,86,Banda,035,Santiago del Estero,86,Capital,049,2021-09-01,Sputnik,BANANA,2da,60 o más años,2,II-850621,14146214915.0, Value is not a number; field: BANANA. header: cod_dosis_generica
 F,80-89,San Luis,74,La Capital,056,Buenos Aires,06,Tigre,805,2021-09-15,Sputnik,3,2da,60 o más años,82,LZS6LZS7,14018265621.0, Value out of range; field: 82. header: orden_dosis
 F,80-89,Buenos Aires,06,Tigre,805,Buenos Aires,06,Tigre,805,2021-07-10,Sputnik,3,2da,60 o más años,8,II-660521,14095517035.0, Value out of range; field: 8. header: orden_dosis
