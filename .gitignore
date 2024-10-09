@@ -1,3 +1,5 @@
 assets/datasets/*
 .venv
 input/datos*
+assets/testDatasets/temp*
+output/broken_data.csv

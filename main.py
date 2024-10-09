@@ -1,28 +1,28 @@
-import string
 import json
 import re
-from os import SEEK_SET 
 
 
 # Path strings
 PATH_TO_INPUT_FORMAT_FILE="input/input_format.json"
 IGNORE_COLUMNS= {"id_persona_dw"}
-DATASET_PATH= "assets/testDatasets/regex_test_dataset.csv"
+DATASET_PATH= "assets/testDatasets/range_test_dataset.csv" 
 # DATASET_PATH = "input/datos_nomivac_parte1.csv"
 BROKEN_DATA_PATH = "output/broken_data.csv"
+# BROKEN_DATA_PATH = "assets/testDatasets/list_test_output.csv"
 
 # misc constants
 REPETITION_TO_NORMALIZE = 2
 
 def process_error_string(error: str, field: str, header: str) -> str:
     return error + "field: " + field + ". header: " + header
+
 def check_state_of_fields(fields:list[str], headers:list[str], frequency_map:set[dict[str, str]]) -> str:
     # possible_state_of_fields
     # El profe dijo que no podiamos tener loosey goosey strings so... ¯\_(ツ)_/¯
     CLEAR = "Clear"
     SIZE_ERROR = " Size Mismatch between fields and headers; "
-    LIST_ERROR = " Value wasn't find in list; "
-    LISTS_ERROR = " Value wasn't find in lists; "
+    LIST_ERROR = " Value has not been found in list; "
+    LISTS_ERROR = " Value has not been found in lists; "
     REGEX_ERROR = " Value didn't match regex in input; "
     RANGE_ERROR = " Value out of range; "
 
@@ -36,33 +36,31 @@ def check_state_of_fields(fields:list[str], headers:list[str], frequency_map:set
         for field_index in range(0, len(fields)):
             field = fields[field_index]
             header = headers[field_index]
-            # TODO: CHECK THIS!!!!
-            if IGNORE_COLUMNS.__contains__(header):
-                continue
-            # catch if its not defined
-            # TODO: Reformat error message
-            if frequency_map[header][field] < REPETITION_TO_NORMALIZE:
-                if input_format[header]["type"] == "list":
-                    domain = input_format[header]["list"]
-                    if (domain.count(field) == 0):
-                        return_string += process_error_string(LIST_ERROR, field, header) 
-                if input_format[header]["type"] == "lists":
-                    domains = input_format[header]["lists"]
-                    for domain in domains:
-                        if domain.count(field) != 0:
-                            break
-                    return_string += process_error_string(LISTS_ERROR, field, header)
-                if input_format[header]["type"] == "regex":
-                    regex = input_format[header]["regex"]
-                    r = re.compile(regex)
-                    if(r.match(field) == None):
-                        return_string += process_error_string(REGEX_ERROR, field, header) 
-                if input_format[header]["type"] == "range":
-                    lower_bound = int(input_format[header]["lower_bound"])
-                    upper_bound = int(input_format[header]["upper_bound"])
-                    # TODO: handle exception if input_format[header]["lower_bound"] is not parseable
-                    if lower_bound > int(field) or upper_bound < int(field):
-                       return_string += process_error_string(RANGE_ERROR, field, header) 
+
+
+            if input_format[header]["type"] == "list" and frequency_map[header][field] < REPETITION_TO_NORMALIZE:
+                domain = input_format[header]["list"]
+                if (domain.count(field) == 0):
+                    return_string += process_error_string(LIST_ERROR, field, header) 
+            if input_format[header]["type"] == "lists" and frequency_map[header][field] < REPETITION_TO_NORMALIZE:
+                domains = input_format[header]["lists"]
+                for domain in domains:
+                    if domain.count(field) != 0:
+                        break
+                return_string += process_error_string(LISTS_ERROR, field, header)
+            if input_format[header]["type"] == "regex":
+                regex = input_format[header]["regex"]
+                r = re.compile(regex)
+                if(r.match(field) == None):
+                    return_string += process_error_string(REGEX_ERROR, field, header) 
+            if input_format[header]["type"] == "range":
+                lower_bound = int(input_format[header]["lower_bound"])
+                upper_bound = int(input_format[header]["upper_bound"])
+                # TODO: handle exception if input_format[header]["lower_bound"] is not parseable
+                if lower_bound > int(field) or upper_bound < int(field):
+                    return_string += process_error_string(RANGE_ERROR, field, header) 
+
+
         if return_string == "":
             return CLEAR
         return return_string
@@ -104,13 +102,11 @@ if __name__ == "__main__":
 
 
 
-
+    with open(DATASET_PATH, "r") as file:
         with open(BROKEN_DATA_PATH, "w") as broken_data_file:
             broken_data_file.write("")
         with open(BROKEN_DATA_PATH, "a") as broken_data_file:
             broken_data_file.write(headers_row.strip() + ",OBSERVACIONES\n")
-            line_count = 0
-            file.seek(0, SEEK_SET)
             for line in file:
                 if line == headers_row:
                     continue
