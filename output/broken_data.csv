@@ -8,3 +8,7 @@ F,S.I.,Santa Fe,82,Rosario,084,Santa Fe,82,Rosario,084,2022-01-25,Moderna ARNm 0
 M,12-17,Chaco,22,Libertad,077,Chaco,22,Libertad,077,2023-03-01,Moderna ARNm 020 mg mL,14,Refuerzo,SIN Factores de Riesgo,3,"2121,JMN,",14007927891.0,Size Mismatch between fields and headers
 MASCULINO,40-49,Buenos Aires,06,Navarro,574,Buenos Aires,06,Navarro,574,2022-05-27,Pfizer,14,Refuerzo,SIN Factores de Riesgo,3,FN1672,14005030329.0,Value wasn't find in list header: sexo field: MASCULINO
 FEMENINO,50-59,Buenos Aires,06,Almirante Brown,028,Buenos Aires,06,Almirante Brown,028,2022-08-29,Sputnik,14,Refuerzo,CON Factores de Riesgo,3,MDD9MDE1,14151113203.0,Value wasn't find in list header: sexo field: FEMENINO
+M,30-39,Mendoza,50,Rivadavia,084,Mendoza,50,Rivadavia,084,2021-08-14,AstraZeneca,21,2da,Estratégico,2,NJ0272,14152852517.0, Value out of range; field: 21. header: cod_dosis_generica
+M,80-89,Santiago del Estero,86,Banda,035,Santiago del Estero,86,Capital,049,2021-09-01,Sputnik,BANANA,2da,60 o más años,2,II-850621,14146214915.0, Value is not a number; field: BANANA. header: cod_dosis_generica
+F,80-89,San Luis,74,La Capital,056,Buenos Aires,06,Tigre,805,2021-09-15,Sputnik,3,2da,60 o más años,82,LZS6LZS7,14018265621.0, Value out of range; field: 82. header: orden_dosis
+F,80-89,Buenos Aires,06,Tigre,805,Buenos Aires,06,Tigre,805,2021-07-10,Sputnik,3,2da,60 o más años,8,II-660521,14095517035.0, Value out of range; field: 8. header: orden_dosis
