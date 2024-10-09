@@ -1,0 +1,5 @@
+{'M,': 9, 'F,': 12}
+{'AstraZeneca,': 47.61904761904761, 'Sputnik,': 33.33333333333333, 'Sinopharm,': 14.285714285714285, 'Pfizer,': 4.761904761904762}
+{'Buenos Aires,2da,': 7, 'Santiago del Estero,1ra,': 1, 'Buenos Aires,1ra,': 4, 'Córdoba,1ra,': 1, 'Entre Ríos,2da,': 1, 'Corrientes,2da,': 1, 'Formosa,2da,': 1, 'Córdoba,2da,': 2, 'Salta,1ra,': 1, 'Mendoza,2da,': 2}
+{}
+0
