@@ -1,29 +1,6 @@
 import json
 import re
 
-
-
-# yanked from https://stackoverflow.com/questions/41105733/limit-ram-usage-to-python-program
-import resource
-import sys
-
-def memory_limit_half():
-    """Limit max memory usage to half."""
-    soft, hard = resource.getrlimit(resource.RLIMIT_AS)
-    # Convert KiB to bytes, and divide in two to half
-    resource.setrlimit(resource.RLIMIT_AS, (int(get_memory() * 1024 / 2), hard))
-
-def get_memory():
-    with open('/proc/meminfo', 'r') as mem:
-        free_memory = 0
-        for i in mem:
-            sline = i.split()
-            if str(sline[0]) in ('MemFree:', 'Buffers:', 'Cached:'):
-                free_memory += int(sline[1])
-    return free_memory  # KiB
-
-
-
 PATH_TO_INPUT_FORMAT_FILE="input/input_format.json"
 IGNORE_COLUMNS= {"id_persona_dw"}
 DATASET_PATH= "assets/testDatasets/range_test_dataset.csv" 
@@ -48,8 +25,6 @@ def check_state_of_fields(fields:list[str], headers:list[str], frequency_map:set
     OUT_OF_RANGE_ERROR = " Value out of range; "
     NAN_RANGE_ERROR = " Value is not a number; "
     LOWER_UPPER_RANGE_ERROR = " Lower or Upper bound is not defined as an int. check input/input_format.json "
-
-    return_string = ""
 
     return_string = ""
 
@@ -99,8 +74,6 @@ def check_state_of_fields(fields:list[str], headers:list[str], frequency_map:set
 
 if __name__ == "__main__":
 
-    memory_limit_half()
-
     with open(DATASET_PATH, "r") as file:
 
         # leer csv headers
@@ -116,12 +89,7 @@ if __name__ == "__main__":
         for header in headers:
             frequency_map[header] = {}
         
-        line_number = 1
-        line_count = 0
         for line in file:
-            line_number += 1
-            if line_number%10000==0:
-                print("passed line", line_number)
             if line == headers_row:
                 continue
             fields = line.split(',')
