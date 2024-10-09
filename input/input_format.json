@@ -4,8 +4,7 @@
         "list": [
             "M",
             "F"
-        ],
-        "criticity": 1
+        ]
     },
     "grupo_etario": {
         "type": "list",
@@ -20,9 +19,8 @@
             "70-79",
             "80-89",
             "90-99",
-            ">100"
-        ],
-        "criticity": 1
+            ">=100"
+        ]
     },
     "jurisdiccion_residencia": {
         "type": "list",
@@ -50,17 +48,17 @@
             "Santa Fe",
             "Santiago del Estero",
             "Tierra del Fuego"
-        ],
-        "criticity": 1
+        ]
     },
     "jurisdiccion_residencia_id": {
         "type": "regex",
-        "regex": "^\\d{2}$",
-        "criticity": 1
+        "regex": "^\\d{2}$"
     },
     "depto_residencia": {
         "type": "list",
         "list": [
+            "Saavedra",
+            "Rivadavia",
             "Banda",
             "La Capital",
             "Capital",
@@ -85,8 +83,7 @@
             "Vicente López",
             "Avellaneda",
             "Esteban Echeverría"
-        ],
-        "criticity": 0
+        ]
     },
     "depto_residencia_id": {
         "type": "regex",
@@ -120,17 +117,17 @@
             "Santa Fe",
             "Santiago del Estero",
             "Tierra del Fuego"
-        ],
-        "criticity": 1
+        ]
     },
     "jurisdiccion_aplicacion_id": {
         "type": "regex",
-        "regex": "^\\d{2}$",
-        "criticity": 1
+        "regex": "^\\d{2}$"
     },
     "depto_aplicacion": {
         "type": "list",
         "list": [
+            "Rivadavia",
+            "Saavedra",
             "Capital",
             "Banda",
             "La Capital",
@@ -157,46 +154,52 @@
             "Vicente López",
             "Avellaneda",
             "Esteban Echeverría"
-        ],
-        "criticity": 0
+        ]
     },
     "depto_aplicacion_id": {
         "type": "regex",
-        "regex": "^\\d+$",
-        "criticity": 0.1
+        "regex": "^\\d+$"
     },
     "fecha_aplicacion": {
         "type": "regex",
-        "regex": "^\\d{4}-\\d{2}-\\d{2}$",
-        "criticity": 0.1
+        "regex": "^\\d{4}-\\d{2}-\\d{2}$"
     },
     "vacuna": {
         "type": "list",
         "list": [
             "Sinopharm",
-            "Pfizer",
             "Moderna ARNm 020 mg mL",
+            "Pfizer",
+            "Sputnik",
+            "Moderna Bivariante BA 4 5",
             "AstraZeneca",
-            "Sputnik V",
-            "Cansino"
-        ],
-        "criticity": 1
+            "Pfizer Pediátrica",
+            "Moderna 010 mg mL",
+            "Cansino",
+            "Pfizer Bivariante BA 4 5",
+            "Sputnik Light",
+            "Moderna",
+            "COVISHIELD",
+            "ARVAC"
+        ]
     },
     "cod_dosis_generica": {
         "type": "range",
         "lower_bound": 1,
-        "upper_bound": 20,
-        "criticity": 0.1
+        "upper_bound": 20
     },
     "nombre_dosis_generica": {
         "type": "list",
         "list": [
-            "1ra",
             "2da",
             "Refuerzo",
-            "Adicional"
-        ],
-        "criticity": 1
+            "1ra",
+            "Unica",
+            "Adicional",
+            "4ta",
+            "3ra",
+            "5ta"
+        ]
     },
     "condicion_aplicacion": {
         "type": "list",
@@ -213,23 +216,19 @@
             "60 o más años",
             "3 a 11 años CON Factores de Riesgo",
             "Salud"
-        ],
-        "criticity": 0.1
+        ]
     },
     "orden_dosis": {
         "type": "range",
         "lower_bound": 1,
-        "upper_bound": 7,
-        "criticity": 0.1
+        "upper_bound": 7
     },
     "lote_vacuna": {
         "type": "regex",
-        "regex": "^[a-zA-Z0-9- ]+$",
-        "criticity": 0.1
+        "regex": "^[a-zA-Z0-9- ]+$"
     },
     "id_persona_dw": {
         "type": "regex",
-        "regex": "^\\d+.\\d+$",
-        "criticity": 0
+        "regex": "^-?\\d+.?\\d*$"
     }
 }
