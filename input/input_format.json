@@ -57,6 +57,7 @@
     "depto_residencia": {
         "type": "list",
         "list": [
+            "Islas del Atlántico Sur",
             "Saavedra",
             "Rivadavia",
             "Banda",
@@ -126,6 +127,7 @@
     "depto_aplicacion": {
         "type": "list",
         "list": [
+            "Islas del Atlántico Sur",
             "Rivadavia",
             "Saavedra",
             "Capital",
@@ -226,7 +228,7 @@
     },
     "lote_vacuna": {
         "type": "regex",
-        "regex": "^[a-zA-Z0-9- ]+$"
+        "regex": "^[a-zA-Z0-9- ]+$|^S\\.I\\.$"
     },
     "id_persona_dw": {
         "type": "regex",
