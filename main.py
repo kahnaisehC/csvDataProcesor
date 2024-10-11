@@ -6,12 +6,8 @@ frequency_map={}
 # paths to files
 PATH_TO_INPUT_FORMAT_FILE="input/input_format.json"
 DATASET_PATH="input/dataset.csv"
-DATASET_PATH="input/datos_nomivac_parte2.csv"
-# DATASET_PATH= "assets/testDatasets/modelo_muestra.csv"
 BROKEN_DATA_PATH="output/broken_data.csv"
-# BROKEN_DATA_PATH = "assets/testDatasets/list_test_output.csv"
 OUTPUT_PATH = "output/requested_data.txt"
-# OUTPUT_PATH="assets/testDatasets/list_test_output.csv"
 
 # misc constants
 

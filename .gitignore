@@ -2,7 +2,7 @@ assets/datasets/*
 .venv
 input/datos*
 assets/testDatasets/temp*
-output/*
 assets/testOutput/*
 __pycache__
 docs/
+output/*
