@@ -98,14 +98,10 @@ Inside the docs/output folder there will be:
 
 [Ian Hakanson]
 
-The full project will be hosted on [This Repo](https://github.com/kahnaisehC/csvDataProcesor). Make sure to check it out and feel free to reach out for any questions or issues!
-
-
 ## Tests
 
 The tests are in progress... 
 There is the testDatasets folder where you can find the test datasets alongside the test outputs that will be used for the unittest.
-
 
 # ÍNDICE
 
@@ -205,8 +201,6 @@ Dentro de la carpeta `docs/output` encontrarás:
 ## Autor
 
 [Ian Hakanson]
-
-El proyecto completo está publicado en [Este Repo](https://github.com/kahnaisehC/csvDataProcesor). ¡Asegurate de chequearlo y por favor avisame por cualquier duda o consulta!
 
 ## Tests
 
