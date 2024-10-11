@@ -1,13 +1,17 @@
 import json
 import re
 
+
+frequency_map={}
 # paths to files
 PATH_TO_INPUT_FORMAT_FILE="input/input_format.json"
-DATASET_PATH= "assets/testDatasets/range_test_dataset.csv" 
-# DATASET_PATH = "input/datos_nomivac_parte1.csv"
-BROKEN_DATA_PATH = "output/broken_data.csv"
+DATASET_PATH="input/dataset.csv"
+DATASET_PATH="input/datos_nomivac_parte2.csv"
+# DATASET_PATH= "assets/testDatasets/modelo_muestra.csv"
+BROKEN_DATA_PATH="output/broken_data.csv"
 # BROKEN_DATA_PATH = "assets/testDatasets/list_test_output.csv"
 OUTPUT_PATH = "output/requested_data.txt"
+# OUTPUT_PATH="assets/testDatasets/list_test_output.csv"
 
 # misc constants
 
@@ -36,6 +40,8 @@ def query(path: str, *searched_headers: tuple[str])->dict[str, int]:
         headers = []
         header_indexes = []
         for index, record in enumerate(file):
+            if(index%100000 == 0):
+                print(index, searched_headers)
             if index == 0:
                 headers = process_record(record)
                 for sheader in searched_headers:
@@ -47,7 +53,7 @@ def query(path: str, *searched_headers: tuple[str])->dict[str, int]:
                 continue
             fields = process_record(record)
 
-            if check_state_of_fields(fields, headers, frequency_map) != 'Clear':
+            if check_state_of_fields(fields, headers) != 'Clear':
                 continue
             list_of_values = ""
             for header_index in header_indexes:
@@ -70,7 +76,9 @@ def process_error_string(error: str, field: str, header: str) -> str:
 # check if the state of a field is broken (doesn't match the input format or if it has more or less rows than the headers)
 # if the record is fine, returns "Clear", otherwise returns an error string with the found incompatibilities
 
-def check_state_of_fields(fields:list[str], headers:list[str], frequency_map:set[dict[str, str]]) -> str:
+with open(PATH_TO_INPUT_FORMAT_FILE, "r") as input_format:
+    input_format = json.loads(input_format.read())
+def check_state_of_fields(fields:list[str], headers:list[str]) -> str:
     # El profe dijo que no podiamos tener loosey goosey strings so... ¯\_(ツ)_/¯
     CLEAR = "Clear"
     SIZE_ERROR = " Size Mismatch between fields and headers; "
@@ -82,60 +90,61 @@ def check_state_of_fields(fields:list[str], headers:list[str], frequency_map:set
 
     return_string = ""
 
-    with open(PATH_TO_INPUT_FORMAT_FILE, "r") as input_format:
-        if len(fields) != len(headers):
-            return SIZE_ERROR 
-
-        input_format = json.loads(input_format.read())
-
-        for field_index in range(0, len(fields)):
-            field = fields[field_index]
-            header = headers[field_index]
+    if len(fields) != len(headers):
+        return SIZE_ERROR 
 
 
-            if input_format[header]["type"] == "list" and frequency_map[header][field] < REPETITION_TO_NORMALIZE:
-                domain = input_format[header]["list"]
-                if (domain.count(field) == 0):
-                    return_string += process_error_string(LIST_ERROR, field, header) 
-
-            if input_format[header]["type"] == "regex":
-                regex = input_format[header]["regex"]
-                r = re.compile(regex)
-                if(r.match(field) == None):
-                    return_string += process_error_string(REGEX_ERROR, field, header) 
-
-            if input_format[header]["type"] == "range":
-                lower_bound = (input_format[header]["lower_bound"])
-                upper_bound = (input_format[header]["upper_bound"])
-                if field.isdigit() == False:
-                    return_string += process_error_string(NAN_RANGE_ERROR, field, header)
-                elif (lower_bound.__class__ != int
-                      or upper_bound.__class__ != int
-                    ):
-                    return_string += process_error_string(LOWER_UPPER_RANGE_ERROR, field, header)
-                elif (lower_bound > int(field)
-                    or upper_bound < int(field)
-                    ):
-                    return_string += process_error_string(OUT_OF_RANGE_ERROR, field, header) 
+    for field_index in range(0, len(fields)):
+        field = fields[field_index]
+        header = headers[field_index]
 
 
-        if return_string == "":
-            return CLEAR
-        return return_string
+        if input_format[header]["type"] == "list" and frequency_map[header][field] < REPETITION_TO_NORMALIZE:
+            domain = input_format[header]["list"]
+            if (domain.count(field) == 0):
+                return_string += process_error_string(LIST_ERROR, field, header) 
 
-if __name__ == "__main__":
+        if input_format[header]["type"] == "regex":
+            regex = input_format[header]["regex"]
+            r = re.compile(regex)
+            if(r.match(field) == None):
+                return_string += process_error_string(REGEX_ERROR, field, header) 
 
-    with open(DATASET_PATH, "r") as dataset_file:
+        if input_format[header]["type"] == "range":
+            lower_bound = (input_format[header]["lower_bound"])
+            upper_bound = (input_format[header]["upper_bound"])
+            if field.isdigit() == False:
+                return_string += process_error_string(NAN_RANGE_ERROR, field, header)
+            elif (lower_bound.__class__ != int
+                    or upper_bound.__class__ != int
+                ):
+                return_string += process_error_string(LOWER_UPPER_RANGE_ERROR, field, header)
+            elif (lower_bound > int(field)
+                or upper_bound < int(field)
+                ):
+                return_string += process_error_string(OUT_OF_RANGE_ERROR, field, header) 
+
+
+    if return_string == "":
+        return CLEAR
+    return return_string
+# calculates the frequency map of every possible value in the csv file in dataset_path (exceept those in the IGNORE_COLUMN set)
+
+def get_frequency_map(dataset_path):
+    
+    with open(dataset_path, "r") as dataset_file:
 
         headers_row = dataset_file.readline()
         headers = process_record(headers_row)
         # NOTE: uso "for i in range(0, len(it)) porque necesito modificar los elementos del iterable"
         # NOTE: en cambio, "for i in it" trata a 'i' como una copia y no como referencia por lo que no es suitable para este caso"
-        frequency_map = {}
         for header in headers:
             frequency_map[header] = {}
-        
+        xx = 0
         for line in dataset_file:
+            xx+=1
+            if(xx%100000 == 0):
+                print(xx, "get freq")
             if line == headers_row:
                 continue
             fields = process_record(line)
@@ -149,32 +158,46 @@ if __name__ == "__main__":
                     frequency_map[header][field] = 0
                 frequency_map[header][field] += 1
 
+    return frequency_map
 
+def write_broken_data(dataset_path, broken_data_path):
 
-    with open(DATASET_PATH, "r") as dataset_file:
+    with open(dataset_path, "r") as dataset_file:
         headers_row = dataset_file.readline()
         headers = process_record(headers_row)
         # reset broken_data_file if it has something
-        with open(BROKEN_DATA_PATH, "w") as broken_data_file:
+        with open(broken_data_path, "w") as broken_data_file:
             broken_data_file.write("")
         
         
-        with open(BROKEN_DATA_PATH, "a") as broken_data_file:
+        with open(broken_data_path, "a") as broken_data_file:
             broken_data_file.write(headers_row.strip() + ",OBSERVACIONES\n")
+            xx = 0
             for line in dataset_file:
+                xx+=1
+                if(xx%100000 == 0):
+                    print(xx, "write brok")
                 if line == headers_row:
                     continue
                 fields = process_record(line)
-                state_of_line = check_state_of_fields(fields,  headers, frequency_map)
+                state_of_line = check_state_of_fields(fields,  headers)
                 if state_of_line != "Clear":
                     broken_data_file.write(line.strip() + "," + state_of_line + "\n")
+
+                    
+if __name__ == "__main__":
+
+
+    frequency_map = get_frequency_map(DATASET_PATH)
+
+    write_broken_data(DATASET_PATH, BROKEN_DATA_PATH)
     
 
 
-    distribucion_por_genero = query(DATASET_PATH, "sexo")
+    distribucion_por_genero = query(DATASET_PATH,"sexo")
     vacunas_por_tipo = query(DATASET_PATH, "vacuna")
     dosis_por_jurisdiccion_residencia = query(DATASET_PATH, "jurisdiccion_residencia", "nombre_dosis_generica")
-    dosis_por_jurisdiccion_aplicacion= query(DATASET_PATH, "jurisdiccion_aplicacion", "nombre_dosis_generica")
+    dosis_por_jurisdiccion_aplicacion= query(DATASET_PATH,"jurisdiccion_aplicacion", "nombre_dosis_generica")
     dosis_por_edad = query(DATASET_PATH, "grupo_etario", "nombre_dosis_generica")
 
     print(dosis_por_jurisdiccion_aplicacion) # 2da dosis 
@@ -190,12 +213,12 @@ if __name__ == "__main__":
 
     segunda_dosis_por_jurisdiccion_aplicacion = {}
     for fields_str, amount in dosis_por_jurisdiccion_aplicacion.items():
-        if(fields_str.endswith("2da")):
-            segunda_dosis_por_jurisdiccion_aplicacion[fields_str.partition(",")[0]] = amount
+        if(fields_str.endswith("2da,")):
+            segunda_dosis_por_jurisdiccion_aplicacion[fields_str.split(",")[0]] = amount
 
     mayores_60_con_refuerzo = 0
     for fields_str, amount in dosis_por_edad.items():
-        if(fields_str[0] >= '6' and fields_str[0] != '<' and fields_str.split(",")[-1] == "Refuerzo"):
+        if(fields_str[0] >= '6' and fields_str[0] != '<' and fields_str.split(",")[len(fields_str.split(","))-2] == "Refuerzo"):
             mayores_60_con_refuerzo += amount
     with open(OUTPUT_PATH, "w") as output_file:
         pass
